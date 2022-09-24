@@ -54,7 +54,9 @@ def pdf(argument):
 
         #To address
         pdf.cell(0, 8, 'To,', new_x="LMARGIN", new_y="NEXT")
-        pdf.cell(0, 8, 'The Principal', new_x="LMARGIN", new_y="NEXT")
+        pdf.cell(0, 8, data["designation"], new_x="LMARGIN", new_y="NEXT")
+        if data["designation"] == "Head of Department":
+            pdf.cell(0, 8, data["department"], new_x="LMARGIN", new_y="NEXT")
         pdf.cell(0, 8, 'EMEA College of Arts and Science', new_x="LMARGIN", new_y="NEXT")
 
         pdf.ln()
