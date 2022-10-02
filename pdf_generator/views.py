@@ -26,6 +26,8 @@ def pdf(argument):
                 self.ln(40)
 
             def footer(self):  
+                #Watermark
+                self.image('pdf_generator/static/images/letter_watermark.png', 0, (pdf.h/2)-30, pdf.w)
                 #Gray Line
                 self.set_draw_color(214,216,220)
                 self.set_line_width(0.5)
@@ -47,17 +49,18 @@ def pdf(argument):
         pdf.set_margin(15)
         pdf.add_page()
 
-        #Watermark
-        pdf.image('pdf_generator/static/images/letter_watermark.png', 0, (pdf.h/2)-30, pdf.w)
 
         pdf.set_font('Montserrat', '', 16)
 
         #To address
         pdf.cell(0, 8, 'To,', new_x="LMARGIN", new_y="NEXT")
-        pdf.cell(0, 8, data["designation"], new_x="LMARGIN", new_y="NEXT")
-        if data["designation"] == "Head of Department":
-            pdf.cell(0, 8, data["department"], new_x="LMARGIN", new_y="NEXT")
-        pdf.cell(0, 8, 'EMEA College of Arts and Science', new_x="LMARGIN", new_y="NEXT")
+        if data["recipient"] == "Others":
+            pdf.multi_cell(0, 8, data["toAddress"], new_x="LMARGIN", new_y="NEXT")
+        else:
+            pdf.cell(0, 8, data["designation"], new_x="LMARGIN", new_y="NEXT")
+            if data["designation"] == "Head of Department":
+                pdf.cell(0, 8, data["department"], new_x="LMARGIN", new_y="NEXT")
+            pdf.cell(0, 8, 'EMEA College of Arts and Science', new_x="LMARGIN", new_y="NEXT")
 
         pdf.ln()
 
